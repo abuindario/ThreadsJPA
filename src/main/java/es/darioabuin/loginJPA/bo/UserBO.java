@@ -36,4 +36,5 @@ public class UserBO {
 		em.getTransaction().commit();
 		em.close();
 	}
+	
 }

@@ -1,5 +1,8 @@
 package es.darioabuin.loginJPA.entities;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,4 +26,15 @@ public class Message {
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User sender;
+	private Date creationDate;
+	private String content;
+	
+	public Message() {}
+	
+	public Message(String content, User user, es.darioabuin.loginJPA.entities.Thread thread) {
+		this.creationDate = Calendar.getInstance().getTime();
+		this.content = content;
+		this.sender = user;
+		this.thread = thread;
+	}
 }

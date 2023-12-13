@@ -1,14 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>User Logged</title>
+<title>Threads:: Home Page</title>
 </head>
 <body>
-	<h1>Congrats, you are logged!</h1>
-	<p>User logged: ${name}</p>
-	<p><a href="http://localhost:8080/loginJPA/loginController?button=">Return to login page</a></p>
+	<p>
+	User logged: ${name} | <a href="http://localhost:8080/loginJPA/loginController?button=kill">Logout</a>
+	</p>
+	<h1>Welcome to Threads!</h1>
+	<c:choose>
+		<c:when test="${threads != null}">
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Author</th>
+					<th>Publication Date</th>
+					<th>Number of messages</th>
+				</tr>
+				<c:forEach var="thread" items="${threads}">
+					<tr>
+						<td><form action="loginController" method="post"><input type="hidden" name="threadId" value="${thread.getId()}"/><button name="button" value="threadById"><c:out value="${thread.threadName}"/></button></form></td>
+						<td><c:out value="${thread.creator.getUsername()}"/></td>
+						<td><c:out value="${thread.getCreationDate()}"/></td>
+						<td><c:out value="${thread.getMessages().size()}"/></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<table>
+				<tr>
+					<td>
+					<form action="loginController" method="post">
+						<input type="text" name="threadName" placeholder="Thread Name"/>
+						<button name="button" value="createThread">New Thread</button>
+					</form>
+					</td>
+				</tr>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<c:out value="There are no more Threads to show!"></c:out>
+			<br>
+			<c:out value="Create the first Thread!"></c:out>
+			<c:out value="${badThreadNaming}"></c:out>
+			<form action="loginController" method="post">
+				<label id="thname">Thread Name: </label><input id="thname" type="text" name="threadName" placeholder="Thread name" />
+				<button name="button" value="createThread">Create Thread</button>
+			</form>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

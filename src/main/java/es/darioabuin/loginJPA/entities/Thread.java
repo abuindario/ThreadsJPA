@@ -1,5 +1,7 @@
 package es.darioabuin.loginJPA.entities;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,4 +30,14 @@ public class Thread {
 	 @ManyToOne
 	 @JoinColumn(name="user_id")
 	 private User creator;
+	 private Date creationDate;
+	 
+	 public Thread() {}
+	 
+	 public Thread(String threadName, User user) {
+			this.creationDate = Calendar.getInstance().getTime();	
+			this.messages = null;
+			this.threadName = threadName;
+			this.creator = user;
+	 }
 }

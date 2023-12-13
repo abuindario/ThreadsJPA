@@ -22,4 +22,5 @@ public class UserDAO {
 	public void register(User user, EntityManager em) {
 		em.persist(user);
 	}
+	
 }

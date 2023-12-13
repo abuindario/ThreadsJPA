@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login JSTL</title>
+<title>Threads:: Login Page</title>
 </head>
 <body>
 	<h1>Login</h1>
