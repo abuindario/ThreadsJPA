@@ -32,4 +32,13 @@ public class ThreadBO {
 		em.getTransaction().commit();
 		em.close();
 	}
+	
+	public void deleteThreadById(int threadId) {
+		EntityManager em = EntityManagerSingleton.getEntityManager();
+		em.getTransaction().begin();
+		ThreadDAO tdao = new ThreadDAO();
+		tdao.deleteThreadById(em, threadId);
+		em.getTransaction().commit();
+		em.close();
+	}
 }

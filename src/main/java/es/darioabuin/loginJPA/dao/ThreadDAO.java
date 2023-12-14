@@ -18,4 +18,9 @@ public class ThreadDAO {
 	public void createThread(EntityManager em, es.darioabuin.loginJPA.entities.Thread th) {
 		em.persist(th);
 	}
+	
+	public void deleteThreadById(EntityManager em, int threadId) {
+		es.darioabuin.loginJPA.entities.Thread thread = em.find(es.darioabuin.loginJPA.entities.Thread.class, threadId);
+		em.remove(em.contains(thread) ? thread : em.merge(thread));
+	}
 }

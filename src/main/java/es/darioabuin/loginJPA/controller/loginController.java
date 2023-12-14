@@ -155,6 +155,17 @@ public class loginController extends HttpServlet {
 					accessAThread(request, response, threadId);					
 				}
 				break;
+			case "deleteThread":
+				threadId = Integer.parseInt(request.getParameter("threadId"));
+				try {
+					tbo.deleteThreadById(threadId);
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				} finally {
+					user = (User) session.getAttribute("user");
+					userLogged(user, request, response);
+				}
+				break;
 			default:
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				break;

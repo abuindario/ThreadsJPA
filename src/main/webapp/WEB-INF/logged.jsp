@@ -27,6 +27,14 @@
 						<td><c:out value="${thread.creator.getUsername()}"/></td>
 						<td><c:out value="${thread.getCreationDate()}"/></td>
 						<td><c:out value="${thread.getMessages().size()}"/></td>
+						<td>
+							<c:if test="${thread.getCreator().getUsername().equals(user.getUsername())}" >
+								<form action="loginController" method="post">
+									<input type="hidden" name="threadId" value="${thread.getId() }" />
+									<button name="button" value="deleteThread">Delete this Thread</button>
+								</form>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

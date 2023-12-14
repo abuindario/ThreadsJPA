@@ -21,9 +21,9 @@ public class MessageBO {
 		em.getTransaction().begin();
 		MessageDAO mdao = new MessageDAO();
 		es.darioabuin.loginJPA.entities.Thread thread = em.find(es.darioabuin.loginJPA.entities.Thread.class, threadId);
-		Message message = mdao.deleteMessageById(em, messageId);
+		Message message = mdao.getMessageById(em, messageId);
 		thread.getMessages().remove(thread.getMessages().indexOf(message));
-		em.remove(em.contains(message) ? message : em.merge(message));
+		mdao.deleteMessage(em, message);
 		em.getTransaction().commit();
 		em.close();
 	}
