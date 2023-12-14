@@ -15,7 +15,7 @@ public class ThreadDAO {
 		return em.find(es.darioabuin.loginJPA.entities.Thread.class, threadId);
 	}
 	
-	public void createThread(EntityManager em, es.darioabuin.loginJPA.entities.Thread th) {
+	public void persistThread(EntityManager em, es.darioabuin.loginJPA.entities.Thread th) {
 		em.persist(th);
 	}
 	

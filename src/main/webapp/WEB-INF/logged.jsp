@@ -14,30 +14,39 @@
 	<h1>Welcome to Threads!</h1>
 	<c:choose>
 		<c:when test="${threads.size() > 0}">
-			<table>
-				<tr>
-					<th>Name</th>
-					<th>Author</th>
-					<th>Publication Date</th>
-					<th>Number of messages</th>
-				</tr>
-				<c:forEach var="thread" items="${threads}">
+			<form action="loginController" method="post">
+				<table>
 					<tr>
-						<td><form action="loginController" method="post"><input type="hidden" name="threadId" value="${thread.getId()}"/><button name="button" value="threadById"><c:out value="${thread.threadName}"/></button></form></td>
-						<td><c:out value="${thread.creator.getUsername()}"/></td>
-						<td><c:out value="${thread.getCreationDate()}"/></td>
-						<td><c:out value="${thread.getMessages().size()}"/></td>
+						<th>Name</th>
+						<th>Author</th>
+						<th>Publication Date</th>
+						<th>Number of messages</th>
+					</tr>
+					<c:forEach var="thread" items="${threads}">
+						<tr id="row${thread.getId() }">
+							<td>
+								<input type="text" name="threadName" value="${thread.getThreadName() }"/>
+								<button onClick="send('editThread', ${thread.getId()})">Edit</button>
+								<c:if test="${thread.getCreator().getUsername().equals(user.getUsername())}" >
+									<button onClick="send('deleteThread', ${thread.getId()})">Delete</button>
+								</c:if>
+							</td>
+							<td><c:out value="${thread.creator.getUsername()}"/></td>
+							<td><c:out value="${thread.getCreationDate()}"/></td>
+							<td><c:out value="${thread.getMessages().size()}"/></td>
+						</tr>
+					</c:forEach>
+					<tr>
 						<td>
-							<c:if test="${thread.getCreator().getUsername().equals(user.getUsername())}" >
-								<form action="loginController" method="post">
-									<input type="hidden" name="threadId" value="${thread.getId() }" />
-									<button name="button" value="deleteThread">Delete this Thread</button>
-								</form>
-							</c:if>
+							<input type="text" name="createThreadName" />
+							<button onClick="send('createThread', 0)">New Thread</button>
 						</td>
 					</tr>
-				</c:forEach>
-			</table>
+				</table>
+				<input type="hidden" name="newThreadName" />
+				<input type="hidden" name="threadId" />
+				<input type="hidden" name="button" />
+			</form>
 		</c:when>
 		<c:otherwise>
 			<c:out value="There are no more Threads to show!"></c:out>
@@ -45,16 +54,20 @@
 			<c:out value="Create the first Thread!"></c:out>
 		</c:otherwise>
 	</c:choose>
-	<table>
-		<tr>
-			<td>
-				<c:out value="${badThreadNaming}"></c:out>
-				<form action="loginController" method="post">
-					<input type="text" name="threadName" placeholder="Thread Name"/>
-					<button name="button" value="createThread">New Thread</button>
-				</form>
-			</td>
-		</tr>
-	</table>
+	<script>
+		const send = (action, id) => {
+			if(action == 'createThread') {
+				document.querySelector('[name=button]').value = action;
+				document.querySelector("form").submit();
+			} else {
+				const row = document.querySelector('#row' + id);
+				const threadName = row.querySelector('input[name="threadName"]').value;
+				document.querySelector('[name=threadId]').value = id;
+				document.querySelector('[name=button]').value = action;
+				document.querySelector('[name=newThreadName]').value = threadName;
+				document.querySelector("form").submit();
+			}
+		}
+	</script>
 </body>
 </html>

@@ -28,7 +28,18 @@ public class ThreadBO {
 		EntityManager em = EntityManagerSingleton.getEntityManager();
 		em.getTransaction().begin();
 		ThreadDAO tdao = new ThreadDAO();
-		tdao.createThread(em, th);
+		tdao.persistThread(em, th);
+		em.getTransaction().commit();
+		em.close();
+	}
+	
+	public void editThread(int threadId, String threadName) {
+		EntityManager em = EntityManagerSingleton.getEntityManager();
+		em.getTransaction().begin();
+		ThreadDAO tdao = new ThreadDAO();
+		es.darioabuin.loginJPA.entities.Thread thread = tdao.getThreadById(em, threadId);
+		thread.setThreadName(threadName);
+		tdao.persistThread(em, thread);
 		em.getTransaction().commit();
 		em.close();
 	}

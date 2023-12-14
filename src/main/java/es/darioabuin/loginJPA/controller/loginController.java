@@ -105,7 +105,7 @@ public class loginController extends HttpServlet {
 				}
 				break;
 			case "createThread":
-				String threadName = "" + request.getParameter("threadName").trim();
+				String threadName = "" + request.getParameter("createThreadName").trim();
 				User user = (User) session.getAttribute("user");
 				if(threadName.length() > 0) {
 					es.darioabuin.loginJPA.entities.Thread thread = new es.darioabuin.loginJPA.entities.Thread(threadName, user);
@@ -159,6 +159,18 @@ public class loginController extends HttpServlet {
 				threadId = Integer.parseInt(request.getParameter("threadId"));
 				try {
 					tbo.deleteThreadById(threadId);
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				} finally {
+					user = (User) session.getAttribute("user");
+					userLogged(user, request, response);
+				}
+				break;
+			case "editThread": 
+				threadId = Integer.parseInt(request.getParameter("threadId"));
+				threadName = request.getParameter("newThreadName");
+				try {
+					tbo.editThread(threadId, threadName);
 				} catch(Exception e) {
 					System.out.println(e.getMessage());
 				} finally {
