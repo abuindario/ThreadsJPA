@@ -13,7 +13,7 @@
 	</p>
 	<h1>Welcome to Threads!</h1>
 	<c:choose>
-		<c:when test="${threads != null}">
+		<c:when test="${threads.size() > 0}">
 			<table>
 				<tr>
 					<th>Name</th>
@@ -30,27 +30,23 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<table>
-				<tr>
-					<td>
-					<form action="loginController" method="post">
-						<input type="text" name="threadName" placeholder="Thread Name"/>
-						<button name="button" value="createThread">New Thread</button>
-					</form>
-					</td>
-				</tr>
-			</table>
 		</c:when>
 		<c:otherwise>
 			<c:out value="There are no more Threads to show!"></c:out>
 			<br>
 			<c:out value="Create the first Thread!"></c:out>
-			<c:out value="${badThreadNaming}"></c:out>
-			<form action="loginController" method="post">
-				<label id="thname">Thread Name: </label><input id="thname" type="text" name="threadName" placeholder="Thread name" />
-				<button name="button" value="createThread">Create Thread</button>
-			</form>
 		</c:otherwise>
 	</c:choose>
+	<table>
+		<tr>
+			<td>
+				<c:out value="${badThreadNaming}"></c:out>
+				<form action="loginController" method="post">
+					<input type="text" name="threadName" placeholder="Thread Name"/>
+					<button name="button" value="createThread">New Thread</button>
+				</form>
+			</td>
+		</tr>
+	</table>
 </body>
 </html>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import es.darioabuin.loginJPA.bo.MessageBO;
 import es.darioabuin.loginJPA.bo.ThreadBO;
 import es.darioabuin.loginJPA.bo.UserBO;
 import es.darioabuin.loginJPA.entities.Message;
@@ -46,6 +47,7 @@ public class loginController extends HttpServlet {
 		String action = "" + request.getParameter("button");
 		UserBO ubo = new UserBO();
 		ThreadBO tbo = new ThreadBO();
+		MessageBO mbo = new MessageBO();
 		switch(action) {
 			case "login":
 				String userName = "" + request.getParameter("userName").trim();
@@ -120,19 +122,37 @@ public class loginController extends HttpServlet {
 				}
 				break;
 			case "threadById":
-				accessAThread(request, response);
+				int threadId = Integer.parseInt(request.getParameter("threadId"));
+				accessAThread(request, response, threadId);
 				break;
 			case "postMessage":
+				threadId = Integer.parseInt(request.getParameter("threadId"));
 				String content = "" + request.getParameter("content").trim();
 				if(content.length() > 0) {
 					user = (User) session.getAttribute("user");
-					int threadId = Integer.parseInt(request.getParameter("threadId"));
 					es.darioabuin.loginJPA.entities.Thread thread = tbo.getThreadById(threadId);
 					Message message = new Message(content, user, thread);
+					try {
+						mbo.postMessage(message);
+						accessAThread(request, response, threadId);
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 				} else {
 					String msg = "Message can not be empty";
 					request.setAttribute("msg", msg);
-					accessAThread(request, response);
+					accessAThread(request, response, threadId);
+				}
+				break;
+			case "deleteMessage": 
+				int messageId = Integer.parseInt(request.getParameter("messageId"));
+				threadId = Integer.parseInt(request.getParameter("threadId"));
+				try {
+					mbo.deleteMessageById(messageId, threadId);	
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
+				} finally {
+					accessAThread(request, response, threadId);					
 				}
 				break;
 			default:
@@ -154,10 +174,12 @@ public class loginController extends HttpServlet {
 		request.getRequestDispatcher("WEB-INF/logged.jsp").forward(request, response);
 	}
 	
-	private static void accessAThread(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private static void accessAThread(HttpServletRequest request, HttpServletResponse response, int threadId) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		ThreadBO tbo = new ThreadBO();
-		int threadId = Integer.parseInt(request.getParameter("threadId"));
 		es.darioabuin.loginJPA.entities.Thread thread = tbo.getThreadById(threadId);
+		request.setAttribute("user", user);
 		request.setAttribute("thread", thread);
 		request.getRequestDispatcher("WEB-INF/thread.jsp").forward(request, response);
 	}

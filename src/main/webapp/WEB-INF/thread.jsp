@@ -8,23 +8,46 @@
 <title>Threads:: Thread</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>Author</th>
-			<th>Publication Date</th>
-			<th>Message</th>
-		</tr>
-		<c:forEach var="msg" items="${thread.getMessages()}">
-			<tr>
-				<td><c:out value="${msg.getSender().getUsername()}"/></td>
-				<td><c:out value="${msg.getCreationDate()}"/></td>
-				<td><c:out value="${msg.getContent()}"/></td>
-			</tr>
-		</c:forEach>
-	</table>
+	<p>
+	User logged: ${user.getUsername()} | <a href="http://localhost:8080/loginJPA/loginController?button=kill">Logout</a>
+	</p>
+	<h1><c:out value="Thread: ${thread.getThreadName() }" /></h1>
+	<c:choose>
+		<c:when test="${thread.getMessages().size() >0}">
+			<table>
+				<tr>
+					<th>Author</th>
+					<th>Publication Date</th>
+					<th>Message</th>
+				</tr>
+				<c:forEach var="msg" items="${thread.getMessages()}">
+					<tr>
+						<td><c:out value="${msg.getSender().getUsername()}"/></td>
+						<td><c:out value="${msg.getCreationDate()}"/></td>
+						<td><c:out value="${msg.getContent()}"/></td>
+						<td>
+							<c:if test="${msg.getSender().getEmail().equals(user.getEmail())}" >
+								<form action="loginController" method="post">
+									<input type="hidden" name="threadId" value="${thread.getId() }" />
+									<input type="hidden" name="messageId" value="${msg.getId() }" />
+									<button name="button" value="deleteMessage">Delete this message</button>
+								</form>
+							</c:if>
+						<td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<c:out value="There are no more messages to display!" />
+			<br>
+			<c:out value="Post the first message!" />
+		</c:otherwise>
+	</c:choose>
 	<table>
 		<tr>
 			<td>
+			<c:out value="${msg}" />
 			<form action="loginController" method="post">
 				<input type="hidden" name="threadId" value="${thread.getId() }" />
 				<input type="text" name="content" placeholder="Write here your post..."/>
