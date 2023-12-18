@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>Threads:: Login Page</title>
 <style type="text/css">
-	body {
-		background: #ffffff;
-	}
-	
 	.screen {
 		width: 100%;
 		display: flex;
@@ -22,13 +18,10 @@
 	}	
 	
 	.login {
+		align-items: center;
 		background: #ffffff;
-		margin: 0;
-		padding: 0;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
 		width: 80%;
 		height: 500px;
 		font-family: sans-serif;
@@ -47,8 +40,6 @@
 	}
 	
 	form {
-		margin: 0;
-		padding: 0;
 		width: 100%;
 	}
 	
@@ -93,7 +84,7 @@
 		justify-content: center;
 		display: flex;
 		width: 100%;
-		margin: 10px;
+		margin-top: 20px;
 		padding: 0;
 		cursor: pointer;
 		text-decoration: none;
@@ -112,20 +103,20 @@
 </head>
 <body>
 	<div class="screen">
-	<div class="col"></div>
-	<div class="login">
-		<form action="loginController" method="post">
-			<h1>Login</h1>
-			<c:out value="${message}" />
-			<input id="uname" type="text" name="userName" placeholder="Username"/>
-			<input id="upass" type="password" name="userPassword" placeholder="Password"/>
-			<button name="button" value="login">Login</button>
-			<button name="button" value="kill">Terminate Session</button>
-			<a href="signup.jsp">Don't have an account?</a>
-			<a href="http://localhost:8080/loginJPA/loginController?button=access">Already logged-in?</a>
-		</form>
-	</div>
-	<div class="col"></div>
+		<div class="col"></div>
+		<div class="login">
+			<form action="loginController" method="post">
+				<h1>Login</h1>
+				<c:out value="${message}" />
+				<input id="uname" type="text" name="userName" placeholder="Username"/>
+				<input id="upass" type="password" name="userPassword" placeholder="Password"/>
+				<button name="button" value="login">Login</button>
+				<button name="button" value="kill">Terminate Session</button>
+				<a href="signup.jsp">Don't have an account?</a>
+				<a href="http://localhost:8080/loginJPA/loginController?button=access">Already logged-in?</a>
+			</form>
+		</div>
+		<div class="col"></div>
 	</div>
 </body>
 </html>
