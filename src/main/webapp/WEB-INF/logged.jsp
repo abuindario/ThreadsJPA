@@ -162,7 +162,7 @@
 								</c:forEach>
 								<tr>
 									<td>
-										<input type="text" name="createThreadName" placeholder="Thread name"/>
+										<input type="text" name="createThreadName" placeholder="Thread name..."/>
 										<c:out value="${badThreadNaming }"/>
 									</td>
 									<td>

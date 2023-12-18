@@ -136,15 +136,13 @@
 						<h1><c:out value="Thread: ${thread.getThreadName() }" /></h1>
 						<table>
 							<tr>
-								<th style="width:10%">Author</th>
-								<th style="width:10%">Publication Date</th>
 								<th style="width:60%">Message</th>
 								<th style="width:20%">Actions</th>
+								<th style="width:10%">Author</th>
+								<th style="width:10%">Publication Date</th>
 							</tr>
 							<c:forEach var="msg" items="${thread.getMessages()}">
 								<tr id="row${msg.getId() }">
-									<td><c:out value="${msg.getSender().getUsername()}"/></td>
-									<td><c:out value="${msg.getCreationDate()}"/></td>
 									<td>
 										<input type="text" name="postContent" value="${msg.getContent()}"/>
 									</td>
@@ -154,17 +152,19 @@
 												<button onClick="send('editMessage', ${msg.getId()})">Edit</button>
 										</c:if>
 									</td>
+									<td><c:out value="${msg.getSender().getUsername()}"/></td>
+									<td><c:out value="${msg.getCreationDate()}"/></td>
 								</tr>
 							</c:forEach>
 								<tr>
-									<td></td>
-									<td></td>
 									<td>
-										<input type="text" name="content" />
+										<input type="text" name="content" placeholder="Write here your message..."/>
 									</td>
 									<td>
 										<button onClick="send('postMessage', 0)">Post!</button>
 									</td>
+									<td></td>
+									<td></td>
 								</tr>
 						</table>
 						<input type="hidden" name="threadId" value="${thread.getId() }"/>
