@@ -98,10 +98,17 @@
 			} else {
 				const row = document.querySelector('#row' + id);
 				const threadName = row.querySelector('input[name="threadName"]').value;
-				document.querySelector('[name=threadId]').value = id;
-				document.querySelector('[name=button]').value = action;
-				document.querySelector('[name=newThreadName]').value = threadName;
-				document.querySelector("form").submit();
+				if(threadName.length > 0) {
+					document.querySelector('[name=threadId]').value = id;
+					document.querySelector('[name=button]').value = action;
+					document.querySelector('[name=newThreadName]').value = threadName;
+					document.querySelector("form").submit();					
+				} else {
+					document.querySelector('[name=threadId]').value = id;
+					document.querySelector('[name=button]').value = action;
+					window.alert("Thread name cannot be empty!");
+					document.querySelector("form").submit();					
+				}
 			}
 		}
 	</script>

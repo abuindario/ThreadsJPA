@@ -27,4 +27,15 @@ public class MessageBO {
 		em.getTransaction().commit();
 		em.close();
 	}
+	
+	public void editMessage(int messageId, String content) {
+		EntityManager em = EntityManagerSingleton.getEntityManager();
+		em.getTransaction().begin();
+		MessageDAO mdao = new MessageDAO();
+		Message message = mdao.getMessageById(em, messageId);
+		message.setContent(content);
+		mdao.postMessage(em, message);
+		em.getTransaction().commit();
+		em.close();
+	}
 }

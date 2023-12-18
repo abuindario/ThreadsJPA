@@ -139,8 +139,6 @@ public class loginController extends HttpServlet {
 						System.out.println(e.getMessage());
 					}
 				} else {
-					String msg = "Message can not be empty";
-					request.setAttribute("msg", msg);
 					accessAThread(request, response, threadId);
 				}
 				break;
@@ -168,14 +166,31 @@ public class loginController extends HttpServlet {
 				break;
 			case "editThread": 
 				threadId = Integer.parseInt(request.getParameter("threadId"));
-				threadName = request.getParameter("newThreadName");
+				threadName = request.getParameter("newThreadName").trim();
 				try {
-					tbo.editThread(threadId, threadName);
+					if(threadName.length() > 0) {
+						tbo.editThread(threadId, threadName);
+					}
 				} catch(Exception e) {
 					System.out.println(e.getMessage());
 				} finally {
 					user = (User) session.getAttribute("user");
 					userLogged(user, request, response);
+				}
+				break;
+			case "editMessage": 
+				messageId = Integer.parseInt(request.getParameter("messageId"));
+				threadId = Integer.parseInt(request.getParameter("threadId"));	
+				content = "" + request.getParameter("content").trim();
+				if(content.length() > 0) {
+					try {
+						mbo.editMessage(messageId, content);
+						accessAThread(request, response, threadId);
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+				} else {
+					accessAThread(request, response, threadId);
 				}
 				break;
 			default:

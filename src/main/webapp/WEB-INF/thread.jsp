@@ -41,15 +41,14 @@
 						<th>Message</th>
 					</tr>
 					<c:forEach var="msg" items="${thread.getMessages()}">
-						<tr>
+						<tr id="row${msg.getId() }">
 							<td><c:out value="${msg.getSender().getUsername()}"/></td>
 							<td><c:out value="${msg.getCreationDate()}"/></td>
 							<td>
-								<c:out value="${msg.getContent()}"/>
+								<input type="text" name="postContent" value="${msg.getContent()}"/>
 								<c:if test="${msg.getSender().getEmail().equals(user.getEmail())}" >
-										<input type="hidden" name="threadId" value="${thread.getId() }" />
-										<input type="hidden" name="messageId" value="${msg.getId() }" />
-										<button name="button" value="deleteMessage">Delete</button>
+										<button onClick="send('deleteMessage', ${msg.getId()})">Delete</button>
+										<button onClick="send('editMessage', ${msg.getId()})">Edit</button>
 								</c:if>
 							</td>
 						</tr>
@@ -59,10 +58,14 @@
 							<td></td>
 							<td>
 								<input type="text" name="content" />
-								<button name="button" value="postMessage">Post!</button>
+								<button onClick="send('postMessage', 0)">Post!</button>
 							</td>
 						</tr>
 				</table>
+				<input type="hidden" name="threadId" value="${thread.getId() }"/>
+				<input type="hidden" name="messageId" />
+				<input type="hidden" name="button" />
+				<input type="hidden" name="updateContent" />
 			</form>
 		</c:when>
 		<c:otherwise>
@@ -83,7 +86,20 @@
 			</table>
 		</c:otherwise>
 	</c:choose>
-	<c:out value="${msg}"/>
 	<a href="http://localhost:8080/loginJPA/loginController?button=access">Return to Thread list</a>
+	<script>
+		const send = (action, id) => {	
+			if(action == 'postMessage') {
+				document.querySelector('[name=button]').value = action;
+			} else {	
+				const row = document.querySelector('#row' + id);
+				const msg = row.querySelector('input[name="postContent"]').value;
+				document.querySelector('[name=messageId]').value = id;
+				document.querySelector('[name=content]').value = msg;
+				document.querySelector('[name=button]').value = action;
+				document.querySelector("form").submit();
+			}
+		}
+	</script>
 </body>
 </html>
