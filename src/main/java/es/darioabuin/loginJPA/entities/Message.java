@@ -27,6 +27,7 @@ public class Message {
 	@JoinColumn(name="user_id")
 	private User sender;
 	private Date creationDate;
+	private String formattedDate;
 	private String content;
 	
 	public Message() {}

@@ -153,7 +153,7 @@
 										</c:if>
 									</td>
 									<td><c:out value="${msg.getSender().getUsername()}"/></td>
-									<td><c:out value="${msg.getCreationDate()}"/></td>
+									<td><c:out value="${msg.getFormattedDate()}"/></td>
 								</tr>
 							</c:forEach>
 								<tr>

@@ -31,6 +31,7 @@ public class Thread {
 	 @JoinColumn(name="user_id")
 	 private User creator;
 	 private Date creationDate;
+	 private String formattedDate;
 	 
 	 public Thread() {}
 	 

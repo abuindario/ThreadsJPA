@@ -156,7 +156,7 @@
 											</c:if>
 										</td>
 										<td><c:out value="${thread.creator.getUsername()}"/></td>
-										<td><c:out value="${thread.getCreationDate()}"/></td>
+										<td><c:out value="${thread.getFormattedDate()}"/></td>
 										<td><c:out value="${thread.getMessages().size()}"/></td>
 									</tr>
 								</c:forEach>
