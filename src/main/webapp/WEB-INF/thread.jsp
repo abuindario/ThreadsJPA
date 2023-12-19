@@ -131,7 +131,7 @@
 		<div class="col"></div>
 		<div class="messagelist">
 			<c:choose>
-				<c:when test="${thread.getMessages().size() >0}">
+				<c:when test="${messages.size() >0}">
 					<form action="loginController" method="post">
 						<h1><c:out value="Thread: ${thread.getThreadName() }" /></h1>
 						<table>
@@ -141,7 +141,7 @@
 								<th style="width:10%">Author</th>
 								<th style="width:10%">Publication Date</th>
 							</tr>
-							<c:forEach var="msg" items="${thread.getMessages()}">
+							<c:forEach var="msg" items="${messages}">
 								<tr id="row${msg.getId() }">
 									<td>
 										<input type="text" name="postContent" value="${msg.getContent()}"/>

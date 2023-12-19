@@ -1,5 +1,7 @@
 package es.darioabuin.loginJPA.bo;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import es.darioabuin.loginJPA.connection.EntityManagerSingleton;
@@ -37,5 +39,11 @@ public class MessageBO {
 		mdao.postMessage(em, message);
 		em.getTransaction().commit();
 		em.close();
+	}
+	
+	public List<Message> getMessages(es.darioabuin.loginJPA.entities.Thread thread) {
+		EntityManager em = EntityManagerSingleton.getEntityManager();
+		MessageDAO mdao = new MessageDAO();
+		return mdao.getMessages(em, thread);
 	}
 }

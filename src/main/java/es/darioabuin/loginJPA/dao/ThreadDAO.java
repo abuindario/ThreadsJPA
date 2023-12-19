@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 
 public class ThreadDAO {
 	public List<es.darioabuin.loginJPA.entities.Thread> getLast10Threads(EntityManager em) {
-		TypedQuery<es.darioabuin.loginJPA.entities.Thread> query = em.createQuery("SELECT t FROM Thread t ORDER BY t.creationDate", es.darioabuin.loginJPA.entities.Thread.class);
+		TypedQuery<es.darioabuin.loginJPA.entities.Thread> query = em.createQuery("SELECT t FROM Thread t ORDER BY t.creationDate DESC", es.darioabuin.loginJPA.entities.Thread.class);
 		return query.getResultList();
 	}
 	

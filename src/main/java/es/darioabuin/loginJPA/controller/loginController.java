@@ -217,6 +217,9 @@ public class loginController extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		ThreadBO tbo = new ThreadBO();
 		es.darioabuin.loginJPA.entities.Thread thread = tbo.getThreadById(threadId);
+		MessageBO mbo = new MessageBO();
+		List<Message> messages = mbo.getMessages(thread);
+		request.setAttribute("messages", messages);
 		request.setAttribute("user", user);
 		request.setAttribute("thread", thread);
 		request.getRequestDispatcher("WEB-INF/thread.jsp").forward(request, response);
