@@ -150,8 +150,8 @@
 										</td>
 										<td>
 											<button onClick="send('threadById', ${thread.getId()})">Access</button>
-											<button onClick="send('editThread', ${thread.getId()})">Edit</button>
 											<c:if test="${thread.getCreator().getUsername().equals(user.getUsername())}" >
+												<button onClick="send('editThread', ${thread.getId()})">Edit</button>
 												<button onClick="send('deleteThread', ${thread.getId()})">Delete</button>
 											</c:if>
 										</td>
