@@ -45,7 +45,7 @@
 		margin: 0;
 		font-weight: bold;
 		width: 100%;
-		cursor: default;
+		cursor: default;		
 	}
 	
 	form {
@@ -118,6 +118,7 @@
 	
 	.otherwise, .when {
 		margin: auto;
+		width: 100%;		
 	}
 </style>
 </head>
