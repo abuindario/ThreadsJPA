@@ -1,5 +1,6 @@
 package es.darioabuin.loginJPA.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -40,5 +41,8 @@ public class Thread {
 			this.messages = null;
 			this.threadName = threadName;
 			this.creator = user;
+			String pattern = "HH:mm, dd MMM YYYY";
+			SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+			this.formattedDate = dateFormat.format(this.creationDate);
 	 }
 }

@@ -1,7 +1,6 @@
 package es.darioabuin.loginJPA.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -208,16 +207,6 @@ public class loginController extends HttpServlet {
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		try {
-			for(es.darioabuin.loginJPA.entities.Thread thread : threads) {
-				String pattern = "HH:mm, dd MMM YYYY";
-				SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-				String creationDate = dateFormat.format(thread.getCreationDate());
-				thread.setFormattedDate(creationDate);
-			}
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
 		request.setAttribute("threads", threads);
 		request.setAttribute("name", user.getUsername());
 		request.getRequestDispatcher("WEB-INF/logged.jsp").forward(request, response);
@@ -228,16 +217,6 @@ public class loginController extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		ThreadBO tbo = new ThreadBO();
 		es.darioabuin.loginJPA.entities.Thread thread = tbo.getThreadById(threadId);
-		try {
-			for(Message message : thread.getMessages()) {
-				String pattern = "HH:mm, dd MMM YYYY";
-				SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
-				String creationDate = dateFormat.format(message.getCreationDate());
-				message.setFormattedDate(creationDate);
-			}
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
 		request.setAttribute("user", user);
 		request.setAttribute("thread", thread);
 		request.getRequestDispatcher("WEB-INF/thread.jsp").forward(request, response);
