@@ -97,7 +97,7 @@ public class loginController extends HttpServlet {
 									System.out.println(e.getMessage());
 								}
 							} else {
-								String msg = "This username is not available.";
+								String msg = "The username is not available.";
 								request.setAttribute("message", msg);
 								request.getRequestDispatcher("signup.jsp").forward(request, response);							}
 						} else {
