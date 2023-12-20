@@ -32,7 +32,7 @@ The table header is stuck at the top of the page during user scrolling.
 At the top of the page, the current logged user, a logout button, and a link to return to the Threads page. This section is always fixed at the top of the page during user scrolling. <br>
 The Thread table contains the message posted, actions that can be performed on the message, the author of the message, and the publication date.<br>
 The table header is stuck at the top of the page during user scrolling.
-![messagesPage](https://github.com/abuindario/ThreadsJPA/assets/92298516/7aeb6f13-741c-4309-bd54-9cb8a28eda42)
+![messagesPage](https://github.com/abuindario/ThreadsJPA/assets/92298516/ed34e55e-32c0-4f0f-9925-29adc4fc21fa)
 - Messages can be edited only by their author. If the user logged in is the author, the 'Edit' button will be available in the 'Actions' column.
 - Messages can only be deleted by their author. If the user logged in is the author, the 'Delete' button will be available in the 'Actions' column.
 - New messages are displayed first.
