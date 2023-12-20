@@ -124,9 +124,9 @@
 	}
 	
 	#message {
-		border: 1px solid red;
-		border-radius: 5px;
 		text-align: center;
+		color: red;
+		font-weight: bold;
 		width: 60%;
 		margin: auto;
 		padding: 5px;
