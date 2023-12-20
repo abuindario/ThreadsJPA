@@ -16,6 +16,7 @@ All fields are mandatory, and they may have special checks:
 - The password must have a capital letter, a number, and must be at least 8 character long.
 - The password must be the same on both fields to complete the registration.
 ![signupPage_validatePassword](https://github.com/abuindario/ThreadsJPA/assets/92298516/a0ac970f-e2c0-4c88-bc1b-bbd979e332eb)
+##
 ![signupPage_matchPassword](https://github.com/abuindario/ThreadsJPA/assets/92298516/8399ba19-02e3-41bf-9664-2af341c207b7)
 ## Threads Page
 At the top of the page, the current logged user, a logout button, and a link to return to the login page (without logging out the user). This section is always fixed at the top of the page during user scrolling. <br>
