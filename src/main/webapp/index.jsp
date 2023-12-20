@@ -23,7 +23,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		width: 80%;
-		height: 500px;
 		font-family: sans-serif;
 		overflow: hidden;
 	}
