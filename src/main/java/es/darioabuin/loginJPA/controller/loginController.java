@@ -83,25 +83,37 @@ public class loginController extends HttpServlet {
 				String email = "" + request.getParameter("email").trim();
 				String uname = "" + request.getParameter("userName").trim();
 				String upass = "" + request.getParameter("userPassword").trim();
-				if(fname.length() != 0 && lname.length() != 0 && email.length() != 0 && uname.length() != 0 && upass.length() != 0) {
-					if(ubo.checkEmail(email) == true) {
-						String msg = "This email is already in use.";
+				String upass2 = "" + request.getParameter("userPassword2").trim();
+				if(fname.length() != 0 && lname.length() != 0 && email.length() != 0 && uname.length() != 0) {
+					if (upass.equals(upass2)) {
+						if(ubo.checkEmail(email) == false) {
+							if(ubo.checkUsername(uname) == false) {
+								try {
+									User user = new User(fname, lname, email, uname, upass);
+									ubo.register(user);	
+									session.setAttribute("user", user);
+									userLogged(user, request, response);
+								} catch (Exception e) {
+									System.out.println(e.getMessage());
+								}
+							} else {
+								String msg = "This username is not available.";
+								request.setAttribute("message", msg);
+								request.getRequestDispatcher("signup.jsp").forward(request, response);							}
+						} else {
+							String msg = "This email is already in use.";
+							request.setAttribute("message", msg);
+							request.getRequestDispatcher("signup.jsp").forward(request, response);
+						}
+					} else {
+						String msg = "Passwords don't match.";
 						request.setAttribute("message", msg);
 						request.getRequestDispatcher("signup.jsp").forward(request, response);
-					} else {
-						try {
-							User user = new User(fname, lname, email, uname, upass);
-							ubo.register(user);	
-							session.setAttribute("user", user);
-							userLogged(user, request, response);
-						} catch (Exception e) {
-							System.out.println(e.getMessage());
-						}
 					}
 				} else {
 					String msg = "Fill all the fields to complete the signup.";
 					request.setAttribute("message", msg);
-					request.getRequestDispatcher("signup.jsp").forward(request, response);
+					request.getRequestDispatcher("signup.jsp").forward(request, response);					
 				}
 				break;
 			case "createThread":

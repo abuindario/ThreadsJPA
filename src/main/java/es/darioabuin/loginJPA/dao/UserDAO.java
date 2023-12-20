@@ -19,6 +19,12 @@ public class UserDAO {
 		return query.getSingleResult();
 	}
 	
+	public User checkUsername(EntityManager em, String username) {
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.username=:username", User.class);
+		query.setParameter("username", username);
+		return query.getSingleResult();
+	}
+	
 	public void register(User user, EntityManager em) {
 		em.persist(user);
 	}

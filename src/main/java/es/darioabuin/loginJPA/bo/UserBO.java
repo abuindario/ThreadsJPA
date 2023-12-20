@@ -28,6 +28,19 @@ public class UserBO {
 		return user != null ? true : false;
 	}
 	
+	public boolean checkUsername(String username) {
+		EntityManager em = EntityManagerSingleton.getEntityManager();
+		UserDAO udao = new UserDAO();
+		User user = null;
+		try {
+			user = udao.checkUsername(em, username);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		em.close();
+		return user != null ? true : false;
+	}
+	
 	public void register(User user) {
 		EntityManager em = EntityManagerSingleton.getEntityManager();
 		em.getTransaction().begin();

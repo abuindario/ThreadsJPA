@@ -123,6 +123,11 @@
 	 	color: red;
 	}
 	
+	#message {
+		width: 60%;
+		margin: auto;
+	}
+	
 	#passwordValidation {
 		display: none;
 		width: 60%;
@@ -136,7 +141,9 @@
 		<div class="col"></div>
 		<div class="signup">
 			<h1>Sign Up form</h1>
-			<c:out value="${message}" />
+			<div id="message">
+				<c:out value="${message}" />
+			</div>
 			<form action="loginController" method="post">
 				<input id="fname" type="text" name="fname" placeholder="First Name" required/>
 				<input id="lname" type="text" name="lname" placeholder="Last Name" required/>
@@ -150,7 +157,7 @@
 				  <p id="number" class="invalid">A <b>number</b></p>
 				  <p id="length" class="invalid">Minimum <b>8 characters</b></p>
 				</div>
-				<input id="upass2" type="password" name="userPassword2" placeholder="Repeat password" required/>	
+				<input id="upass2" type="password" name="userPassword2" placeholder="Repeat password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>	
 				<div id="passwordValidation">
 				  <p id="match" class="invalid">Passwords must match</p>
 				</div>		
